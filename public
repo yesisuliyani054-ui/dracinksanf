@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KSANF</title>
+
+<style>
+body{
+margin:0;
+background:#0a0a0a;
+color:white;
+font-family:sans-serif;
+}
+
+/* SEARCH */
+.search{
+margin:10px;
+background:#1a1a1a;
+padding:12px;
+border-radius:25px;
+}
+
+/* TABS */
+.tabs{
+display:flex;
+gap:8px;
+padding:10px;
+}
+
+.tab{
+padding:6px 12px;
+background:#222;
+border-radius:20px;
+font-size:12px;
+}
+
+.active{
+background:#facc15;
+color:black;
+}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+padding:10px;
+}
+
+.card img{
+width:100%;
+border-radius:10px;
+}
+
+/* NAV */
+.nav{
+position:fixed;
+bottom:0;
+width:100%;
+background:#111;
+display:flex;
+justify-content:space-around;
+padding:10px 0;
+}
+</style>
+</head>
+
+<body>
+
+<div class="search">Cari drama...</div>
+
+<div class="tabs">
+<div class="tab active">Populer</div>
+<div class="tab">Anime</div>
+<div class="tab">Drama</div>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<div class="nav">
+<div>Home</div>
+<div>Cari</div>
+<div>VIP</div>
+<div>Profil</div>
+</div>
+
+<script>
+fetch("/videos")
+.then(r=>r.json())
+.then(data=>{
+let html=""
+data.forEach(v=>{
+html+=`
+<div class="card">
+<img src="${v.thumbnail}">
+</div>
+`
+})
+grid.innerHTML = html
+})
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html>
+<body style="background:black;color:white">
+
+<h2>Admin</h2>
+
+<input id="title" placeholder="judul">
+<input id="thumb" placeholder="thumbnail">
+
+<button onclick="add()">Tambah</button>
+
+<script>
+const token = localStorage.getItem("token")
+
+function add(){
+fetch("/video",{
+method:"POST",
+headers:{
+"Content-Type":"application/json",
+authorization:token
+},
+body:JSON.stringify({
+title:title.value,
+thumbnail:thumb.value
+})
+})
+}
+</script>
+
+</body>
+</html>
