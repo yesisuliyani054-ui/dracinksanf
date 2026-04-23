@@ -35,8 +35,8 @@ const Video = mongoose.model("Video", new mongoose.Schema({
 
 /* AUTO ADMIN */
 async function createAdmin(){
-  const email = process.env.ADMIN_EMAIL
-  const password = process.env.ADMIN_PASSWORD
+  const email = process.env.yesisuliyani054@gmail.com
+  const password = process.env.ksanf123
 
   let exist = await User.findOne({email})
   if(!exist){
